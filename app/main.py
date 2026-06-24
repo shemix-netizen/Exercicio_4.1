@@ -1,7 +1,11 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-app = FastAPI()
+app = FastAPI(
+    title="TODO List API",
+    description="API REST mínima de TODO list — Exercício 4.1 (Aula 6: APIs REST).",
+    version="1.0.0",
+)
 
 # Store em memória. Zera quando o processo reinicia.
 _tarefas: dict[int, dict] = {}
