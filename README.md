@@ -55,6 +55,29 @@ autograder (`autograde validar 4.1`) em outra janela do PowerShell.
 - Nomes dos campos exatamente: `id`, `titulo`, `concluida` (sem acento, minúsculos).
 - Armazenamento **em memória** — zera ao reiniciar (estado limpo proposital).
 
+## Rodando o autograder
+
+1. **Janela 1** — deixe a API no ar (não feche):
+   ```powershell
+   uvicorn app.main:app --port 8000
+   ```
+2. **Janela 2** — rode o autograder:
+   ```powershell
+   autograde validar 4.1
+   ```
+
+> ⚠️ O autograder dispara chamadas HTTP reais. Se a API **não** estiver rodando na porta
+> 8000, os itens `health`, `post_tarefa`, `get_tarefa` e `put_tarefa` aparecem como
+> "não capturado". Garanta o servidor no ar **antes** de validar.
+
+### Solução de problemas
+
+| Sintoma | Causa | Correção |
+|---|---|---|
+| `comando ... nao capturado` | API fora do ar na 8000 | Suba o `uvicorn` antes de validar |
+| POST retorna `id` ≠ 1 | estado sujo de execução anterior | Reinicie o servidor (memória zera) |
+| porta 8000 ocupada | processo antigo preso | `netstat -ano \| findstr :8000` e `taskkill /F /PID <pid>` |
+
 ## Testando manualmente (PowerShell)
 
 Use `curl.exe` (não o alias `curl`) e variável `$body` para o JSON do PUT:
