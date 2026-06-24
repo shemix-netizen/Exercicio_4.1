@@ -1,0 +1,28 @@
+### Exemplos de chamadas à API — Exercício 4.1
+### (use a extensão REST Client do VS Code ou copie para o curl)
+
+@base = http://localhost:8000
+
+### Health check
+GET {{base}}/health
+
+### Criar tarefa (POST) — deve retornar id=1 com estado limpo
+POST {{base}}/tarefas
+Content-Type: application/json
+
+{ "titulo": "estudar APIs" }
+
+### Listar todas as tarefas (GET)
+GET {{base}}/tarefas
+
+### Buscar tarefa por id (GET)
+GET {{base}}/tarefas/1
+
+### Atualizar tarefa (PUT)
+PUT {{base}}/tarefas/1
+Content-Type: application/json
+
+{ "titulo": "estudar APIs REST", "concluida": true }
+
+### Tarefa inexistente (deve retornar 404)
+GET {{base}}/tarefas/99
